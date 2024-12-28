@@ -1,5 +1,9 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
+using namespace __gnu_pbds;
+
 #define ss second
 #define ff first
 #define pb push_back
@@ -29,6 +33,14 @@ typedef long long ll;
 #define N_LMT 100001
 #define janu main
 #define int long long
+template <typename T> ostream &operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) out << x << ' '; return out; }
+template <typename T> istream &operator>>(istream &in, vector<T> &v) { for (auto &x : v) in >> x; return in; }
+
+template <typename Key, typename Mapped, typename Comp = less<Key>>
+using ordered_map = tree<Key, Mapped, Comp, rb_tree_tag, tree_order_statistics_node_update>;
+
+template <typename Key, typename Comp = less<Key>>
+using ordered_set = tree<Key, null_type, Comp, rb_tree_tag, tree_order_statistics_node_update>;
 
 /***************************************C-H-A-O-S**************************************/
 int mex(vector<ll>& numberArray) {  // munda mex
@@ -203,3 +215,67 @@ void solve() {
     
 
 }
+
+
+// void solve() 
+// {
+//     int n, m; cin >> n >> m;
+    
+//     vector <int> cnt(m + 2, 0);
+//     vector <int> dp(m + 1, -1e9);
+//     dp[0] = 0;
+    
+//     auto update = [&](){
+//         for (int i = 1; i <= m; i++){
+//             cnt[i] += cnt[i - 1];
+//         }  
+        
+//         for (int i = 0; i <= m; i++){
+//             dp[i] += cnt[i];
+//         }
+        
+//         auto ndp = dp;
+//         for (int i = 1; i <= m; i++){
+//             ndp[i] = max(ndp[i], dp[i - 1]);
+//         }
+        
+//         dp = ndp;
+        
+//         for (auto &x : cnt){
+//             x = 0;
+//         }
+//     };
+    
+//     int curr = 0;
+//     for (int i = 1; i <= n; i++){
+//         int x; cin >> x;
+        
+//         if (x == 0){
+//             update();
+//             curr++;
+//         } else if (x > 0){
+//             cnt[x]++;
+//         } else {
+//             x = -x;
+//             if (x <= curr){
+//                 cnt[0]++;
+//                 cnt[curr - x + 1]--;
+//             }
+//         }
+//         for(auto it: cnt) cout<<it<<" ";
+//         endl();
+//         for(auto it: dp){
+//             cout<<it<<" "; 
+//         }
+//         endl();
+//         endl();
+//     }
+    
+//     update();
+//         for(auto it: dp){
+//             cout<<it<<" "; 
+//         }
+//         endl();
+//     int ans = *max_element(dp.begin(), dp.end());
+//     cout << ans << "\n";
+// }

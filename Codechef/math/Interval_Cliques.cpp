@@ -1,9 +1,9 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+#include <ext/pb_ds/trie_policy.hpp>
+#include <ext/pb_ds/tag_and_trait.hpp>
 using namespace std;
 using namespace __gnu_pbds;
-
 #define ss second
 #define ff first
 #define pb push_back
@@ -32,27 +32,15 @@ typedef long long ll;
 #define No() cout << "NO\n"
 #define  MAXN 300005
 #define N_LMT 200200
-template <typename T> ostream &operator<<(ostream &out, const vector<T> &v) { for (const auto &x : v) out << x << ' '; return out; }
-template <typename T> istream &operator>>(istream &in, vector<T> &v) { for (auto &x : v) in >> x; return in; }
-
-template <typename Key, typename Mapped, typename Comp = less<Key>>
-using ordered_map = tree<Key, Mapped, Comp, rb_tree_tag, tree_order_statistics_node_update>;
-
-template <typename Key, typename Comp = less<Key>>
-using ordered_set = tree<Key, null_type, Comp, rb_tree_tag, tree_order_statistics_node_update>;
 
 void debug(vi v){
+
     for(auto it: v){
         cerr<<it<<" ";
     }
     cerr<<endl;
 }
-void print(vi v){
-    for(auto it: v){
-        cerr<<it<<" ";
-    }
-    cerr<<endl;
-}
+
 ll gcd(ll a, ll b){ if(b==0) return a; else return gcd(b,a%b); }
 
 int mex(vector<ll>& numberArray) {  // munda mex
@@ -75,49 +63,46 @@ ll binpow(ll a, ll b, ll m ) {
     }
     return res%m;
 }
-ll fac[2000001];
-
-ll inv(ll a){ return binpow(a,mod_10-2,mod_10); }
- 
-ll ncr(ll n, ll r){
-    if(n<r || r<0){
-        return 0;
-    }
-    if(r==0){
-        return 1;
-    }
-    ll ans = 1;
-    ans = (ans*fac[n])%mod_10;
-    ans = (ans*inv(fac[r]))%mod_10;
-    ans = (ans*inv(fac[n - r]))%mod_10;
-    return ans%mod_10;
-} 
-
 
 void solve() {
 
+    ll n;
+    cin>>n;
+
+    vector<pair<ll,ll>> v(n);
+    for(auto &i: v) cin>>i.ff>>i.ss;
+
+    sort(all(v));
+
+    vi lis(n);
+    for(int i=0; i<n; i++){
+        lis[i] = v[i].ss;
+    }
+    deque<ll> ans;
+    ans.push_back(-1e12);
+    for(int i = 0; i < n; i++){
+        if(lis[i] > ans.back()){
+            ans.push_back(lis[i]);
+        } else {
+            auto it = lower_bound(ans.begin(), ans.end(), lis[i]);
+            *it = lis[i];
+        }
+    }
+    cout << ans.size() - 1 << endl;
 }
 
-int main() {
-    // ifstream inputFile("input.txt");  // Open input file
-    // ofstream outputFile("output.txt"); // Open output file
+signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-
-    ll t=1;
+    ll t = 1;
     cin >> t;
-    int i = 1;
-
+    int i=1;
     while (t--) {
         solve();
-        // inputFile >> a >> b >> m; // Read from input file
-        // outputFile << "Case #" << i << ": " << solve(a, b, m) << endl; // Write to output file
+        // cout<<solve()<<endl;
+        // testcase_(i, solve());
         i++;
     }
-
-    // inputFile.close();   // Close input file
-    // outputFile.close();  // Close output file
-
     return 0;
 }

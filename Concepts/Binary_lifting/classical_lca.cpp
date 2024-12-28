@@ -11,7 +11,11 @@ void dfs(int node, int p = 0, int dep){
     depth[node] = dep;
 
     for(int bit = 1; bit<20; bit++){
-        parent[node][bit] = parent[parent[node][i-1]][i-1];
+        if(parent[node][bit-1]!=-1)
+            parent[node][bit] = parent[parent[node][bit-1]][bit-1];
+        else{
+             parent[node][bit] = -1;
+        }
     }
     for(auto it: adj[node]){
         if(p == it) continue;
@@ -36,7 +40,7 @@ int lca(int u, int v){
     for(int i=19; i>=0; i--){
 
         if(parent[u][i]!=parent[v][i]){
-            u = parent[u][i], parent[v][i];
+            u = parent[u][i], v = parent[v][i];
         }
     }
     return parent[u][0];
