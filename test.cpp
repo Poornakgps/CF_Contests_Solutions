@@ -93,9 +93,58 @@ ll ncr(ll n, ll r){
     return ans%mod_10;
 } 
 
+<<<<<<< HEAD
 
 void solve() {
+=======
+void solve() {
 
+    ll l, r; cin >> l >> r;
+    if(r-l == 2){
+        cout<<l <<" "<<l + 1<<" "<<r<<endl;
+        return;
+    }
+
+    ll a = 0, b = 0, c = 0;
+    map<ll,ll> vis;
+    // a
+    a = r;
+    for(ll bit=29; bit>=0; bit--){
+        if(((r>>bit)&1)){
+            vis[bit] = 1;
+        }
+    }
+    // b
+    bool fk = false;
+    for(ll bit=29; bit>=0; bit--){
+        if(((r>>bit)&1) && ((l>>bit)&1) && !fk){
+            b+=pow(2, bit);
+        }
+        else{
+            if(((r>>bit)&1) && !((l>>bit)&1)){
+                b+=pow(2, bit)-1;
+                break;
+            }
+        }
+    }
+>>>>>>> ab6752b (added files)
+
+    c = 0;
+    // change = false;
+    for(ll bit=29; bit>=0; bit--){
+        if(((a>>bit)&1) && (c+(pow(2, bit) - 1)<l)){
+            c+=pow(2, bit);
+        }
+        else{
+            if((!((a>>bit)&1) && ((b>>bit)&1)  && (c+pow(2, bit)<r)) || (((a>>bit)&1) && !((b>>bit)&1)  && (c+pow(2, bit)<r))){
+                c+= (pow(2, bit));
+            }
+        }
+    }
+    if(c == b){
+        c--;
+    }
+    cout<<a<<" "<<b<<" "<<c<<endl;
 }
 
 int main() {

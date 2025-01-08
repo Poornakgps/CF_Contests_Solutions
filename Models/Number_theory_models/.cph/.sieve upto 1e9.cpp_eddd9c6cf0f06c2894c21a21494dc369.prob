@@ -1,0 +1,1 @@
+{"name":"Local: sieve upto 1e9","url":"/home/chandu/Downloads/CP/CP_/Models/Number_theory_models/sieve upto 1e9.cpp","tests":[{"id":1734937500751,"input":"1000000000 3 1","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/chandu/Downloads/CP/CP_/Models/Number_theory_models/sieve upto 1e9.cpp","group":"local","local":true}
